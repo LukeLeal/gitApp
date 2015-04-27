@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Label" representedClassName="PRODUCT_MODULE_NAME.Label">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <relationship name="pullRequest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PullRequest" inverseName="labels" inverseEntity="PullRequest" syncable="YES"/>
+        <userInfo/>
+    </entity>
+    <entity name="Project" representedClassName="PRODUCT_MODULE_NAME.Project" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="readMe" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="pullRequests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PullRequest" inverseName="project" inverseEntity="PullRequest" syncable="YES"/>
+    </entity>
+    <entity name="PullRequest" representedClassName="PRODUCT_MODULE_NAME.PullRequest" syncable="YES">
+        <attribute name="number" optional="YES" syncable="YES"/>
+        <relationship name="labels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Label" inverseName="pullRequest" inverseEntity="Label" syncable="YES"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="pullRequests" inverseEntity="Project" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="relationship" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="PRODUCT_MODULE_NAME.User" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PullRequest" inverseName="user" inverseEntity="PullRequest" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Label" positionX="385" positionY="171" width="128" height="88"/>
+        <element name="Project" positionX="133" positionY="9" width="128" height="88"/>
+        <element name="PullRequest" positionX="126" positionY="179" width="128" height="103"/>
+        <element name="User" positionX="133" positionY="369" width="128" height="88"/>
+    </elements>
+</model>
