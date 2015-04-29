@@ -14,7 +14,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     var detailViewController: DetailViewController? = nil
     //var managedObjectContext: NSManagedObjectContext? = nil
     var dm : DataManager = DataManager.sharedInstance;
-    var users : NSArray?;
+    var project : NSArray?;
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,12 +38,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         
         var ud : NSUserDefaults = NSUserDefaults.standardUserDefaults();
         if((ud.objectForKey("hasData")) == nil){
-            dm.insereDadosPadrao();
+//            dm.insereDadosPadrao();
             ud.setBool(true, forKey: "hasData");
         } else {
             dm.updateUser("Daniel Orivaldo da Silva", newName: "Ayy lmao");
         }
-        users = dm.searchEntity("User");
+        project = dm.searchEntity("Project");
         println("hue");
     }
 
@@ -55,6 +55,10 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     func insertNewObject(sender: AnyObject) {
         var git = jSONManager()
         git.buscarRepos("Chimello44")
+        project = dm.searchEntity("Project");
+        self.tableView.reloadData()
+        println(((dm.searchEntity("PullRequest").objectAtIndex(0)) as! PullRequest).number);
+        
 //        let context = self.fetchedResultsController.managedObjectContext
 //        let entity = self.fetchedResultsController.fetchRequest.entity!
 //        let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity.name!, inManagedObjectContext: context) as! NSManagedObject
@@ -96,7 +100,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //let sectionInfo = self.fetchedResultsController.sections![section] as! NSFetchedResultsSectionInfo
-        return users!.count;
+        return project!.count;
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -110,7 +114,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         return true
     }
 
-//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        self.tableView.reloadData()
 //        if editingStyle == .Delete {
 //            let context = self.fetchedResultsController.managedObjectContext
 //            context.deleteObject(self.fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject)
@@ -123,12 +128,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 //                abort()
 //            }
 //        }
-//    }
+    }
 
     func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-            let object = self.users?.objectAtIndex(indexPath.row) as! User
+            let object = self.project?.objectAtIndex(indexPath.row) as! Project
         cell.textLabel!.text = object.name;
-        println(object.name);
+        //println(object.name);
         
     }
 
