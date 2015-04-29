@@ -52,7 +52,9 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         // Dispose of any resources that can be recreated.
     }
 
-//    func insertNewObject(sender: AnyObject) {
+    func insertNewObject(sender: AnyObject) {
+        var git = jSONManager()
+        git.buscarRepos("Chimello44")
 //        let context = self.fetchedResultsController.managedObjectContext
 //        let entity = self.fetchedResultsController.fetchRequest.entity!
 //        let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity.name!, inManagedObjectContext: context) as! NSManagedObject
@@ -69,7 +71,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 //            //println("Unresolved error \(error), \(error.userInfo)")
 //            abort()
 //        }
-//    }
+    }
 
     // MARK: - Segues
 
