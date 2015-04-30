@@ -66,7 +66,9 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         git.buscarRepos(up)
         project = dm.searchEntity("Project");
         self.tableView.reloadData()
-        println(dm.searchEntity("PullRequest"));
+        //var pull = dm.searchEntity("PullRequest", predicate: "number == 24") as! PullRequest
+        //println(pull.lastUpdate);
+        //println((dm.searchEntity("PullRequest").objectAtIndex(0) as! PullRequest).lastUpdate);
         
 //        let context = self.fetchedResultsController.managedObjectContext
 //        let entity = self.fetchedResultsController.fetchRequest.entity!

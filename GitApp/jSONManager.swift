@@ -31,11 +31,11 @@ class jSONManager: NSObject {
             let repo = item.objectForKey("full_name") as! String
             if verificarPulls(user, path: repo){
                 println(repo)
-                dm.insertEntity("Project", name:repo)
+                dm.insertProject(repo)
                 let numPull = self.getPull(repo, usuario: user)
                 
                 if numPull != ""{
-                    dm.createPullRequest(numPull, projectName: repo)
+                    dm.insertPullRequest(numPull, projectName: repo)
                     
                 }
                 self.getLabel(numPull, path: repo)
@@ -57,6 +57,7 @@ class jSONManager: NSObject {
         //        var tdsRepos = Array<String>()
         
         for item in resultado{
+            
             let user = item.objectForKey("user") as! NSDictionary
             let num : String = (item.objectForKey("number") as! NSNumber).stringValue
             if user.objectForKey("login")! as! String  == usuario{
@@ -70,8 +71,6 @@ class jSONManager: NSObject {
     }
     
     func getPull(path:String, usuario:String)->String{
-        let clientID = "8fb09c4abdef8660c7a4"
-        let clientSecret = "562c127dd23de151e09483cea87b0e64ab58514c"
         
         var url = NSURL(string: "https://api.github.com/repos/\(path)/pulls?client_id=\(clientID)&client_secret=\(clientSecret)")
         
@@ -100,13 +99,25 @@ class jSONManager: NSObject {
         
         var resultado = self.getJSON(url!) as! NSDictionary
         
+        
         var labels: AnyObject? = resultado.objectForKey("labels")
+        let date: String? = resultado.objectForKey("updated_at") as? String
+        
+        var pull = dm.searchEntity("PullRequest", predicate: "number == \(number)") as! PullRequest
+        pull.lastUpdate = date!
+        dm.context?.save(nil);
+        
+        
+        //fazer metodo no datamanager que recebe date, pull e verifica se atualiza
+        
+        println("eita cara olha essa data ----> \(date)")
         var lab = labels as! Array<NSDictionary>
         
         for item in lab{
             
             let color = item.objectForKey("color") as! String
             let name = item.objectForKey("name") as! String
+            
             
             println("\(color),\(name)")
         }

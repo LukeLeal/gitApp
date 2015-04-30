@@ -45,17 +45,27 @@ class DataManager: NSObject {
         var fr : NSFetchRequest = NSFetchRequest();
         
         fr.entity = NSEntityDescription.entityForName(entity, inManagedObjectContext: context!);
-        fr.predicate = NSPredicate(format: "name == %@", predicate);
+        fr.predicate = NSPredicate(format: predicate);
         
         var fetchedObjects : NSArray = context!.executeFetchRequest(fr, error: nil)!;
         return fetchedObjects.objectAtIndex(0) as! NSManagedObject;
     }
     
-    func compareEntity(entityA:String)-> Bool{
+//    func searchPR (predicate : String) -> NSManagedObject{
+//        var fr : NSFetchRequest = NSFetchRequest();
+//        
+//        fr.entity = NSEntityDescription.entityForName("PullRequest", inManagedObjectContext: context!);
+//        fr.predicate = NSPredicate(format: "number == %@", predicate);
+//        
+//        var fetchedObjects : NSArray = context!.executeFetchRequest(fr, error: nil)!;
+//        return fetchedObjects.objectAtIndex(0) as! NSManagedObject;
+//    }
+    
+    func compareEntity(entity:String, predicate : String)-> Bool{
         var fr : NSFetchRequest = NSFetchRequest()
         
-        fr.entity = NSEntityDescription.entityForName("Project", inManagedObjectContext: context!)
-        fr.predicate = NSPredicate(format: "name == %@", entityA)
+        fr.entity = NSEntityDescription.entityForName(entity, inManagedObjectContext: context!)
+        fr.predicate = NSPredicate(format: predicate)
         
         if let fetchResults = context!.executeFetchRequest(fr, error: nil) as? [NSManagedObject]{
             if fetchResults.count != 0{
@@ -87,22 +97,26 @@ class DataManager: NSObject {
         
     }
     
-    func insertEntity( entity:String , name:String){
-        
-        if !compareEntity(name){
-            var h : Project = NSEntityDescription.insertNewObjectForEntityForName(entity, inManagedObjectContext: context!) as! Project
+    func insertProject(name:String){
+        var predicate = "name == '\(name)'";
+        if !compareEntity("Project", predicate: predicate){
+            var h : Project = NSEntityDescription.insertNewObjectForEntityForName("Project", inManagedObjectContext: context!) as! Project
             h.name = name
             
             context!.save(nil)
         }
     }
     
-    func createPullRequest(number:String, projectName:String){
-        var e : PullRequest = NSEntityDescription.insertNewObjectForEntityForName("PullRequest", inManagedObjectContext: context!) as! PullRequest
-        e.number = Double(number.toInt()!);//Arrumar se der tempo
-        e.project = searchEntity("Project", predicate: projectName) as! Project;
-    
-        context!.save(nil)
+    func insertPullRequest(number:String, projectName:String){
+        
+        var predicate = "project.name == '\(projectName)' AND number == \(number)";
+        if !compareEntity("PullRequest", predicate: predicate){
+            var e : PullRequest = NSEntityDescription.insertNewObjectForEntityForName("PullRequest", inManagedObjectContext: context!) as! PullRequest
+            e.number = Double(number.toInt()!);//Arrumar se der tempo
+            e.project = searchEntity("Project", predicate: "name == '\(projectName)'") as! Project;
+        
+            context!.save(nil)
+        }
 
     }
 }

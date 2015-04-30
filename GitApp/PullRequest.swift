@@ -15,5 +15,6 @@ class PullRequest: NSManagedObject {
     @NSManaged var project: Project
     @NSManaged var user: User
     @NSManaged var number: Double
+    @NSManaged var lastUpdate: String
 
 }
