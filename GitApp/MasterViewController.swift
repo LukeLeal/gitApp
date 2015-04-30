@@ -15,7 +15,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     //var managedObjectContext: NSManagedObjectContext? = nil
     var dm : DataManager = DataManager.sharedInstance;
     var project : NSArray?;
-    
+    var timer = NSTimer()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,6 +29,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        
+        
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
@@ -42,6 +44,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             project = dm.searchEntity("Project");
             self.tableView.reloadData()
             println(dm.searchEntity("PullRequest"));
+            
+            timer = NSTimer.scheduledTimerWithTimeInterval(120, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
         }
         
         
@@ -53,6 +57,16 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         }
         project = dm.searchEntity("Project");
         println("hue");
+    }
+    
+    func update(){
+        var git = jSONManager()
+        var up : String = ud.valueForKey("usuario") as! String
+        git.buscarRepos(up)
+        project = dm.searchEntity("Project");
+        self.tableView.reloadData()
+        println(dm.searchEntity("PullRequest"));
+        println("PRINTO")
     }
 
     override func didReceiveMemoryWarning() {

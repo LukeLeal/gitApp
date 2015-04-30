@@ -36,6 +36,7 @@ class LoginViewController: UIViewController {
         println(ud.valueForKey("usuario"))
         
         
+        
     }
 
     /*
