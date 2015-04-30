@@ -26,9 +26,11 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     }
 
     override func viewDidLoad() {
+        
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Redo, target: self, action: "goBack")
         
         
 
@@ -50,14 +52,19 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         }
         
         
-        if((ud.objectForKey("hasData")) == nil){
-//            dm.insereDadosPadrao();
-            ud.setBool(true, forKey: "hasData");
-        } else {
-            dm.updateUser("Daniel Orivaldo da Silva", newName: "Ayy lmao");
-        }
-        project = dm.searchEntity("Project");
-        println("hue");
+//        if((ud.objectForKey("hasData")) == nil){
+////            dm.insereDadosPadrao();
+//            ud.setBool(true, forKey: "hasData");
+//        } else {
+//            dm.updateUser("Daniel Orivaldo da Silva", newName: "Ayy lmao");
+//        }
+//        project = dm.searchEntity("Project");
+//        println("hue");
+    }
+    
+    func goBack(){
+        
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func update(){
