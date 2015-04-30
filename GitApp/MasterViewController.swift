@@ -38,6 +38,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             let controllers = split.viewControllers
             self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
             
+         
             var git = jSONManager()
             var up : String = ud.valueForKey("usuario") as! String
             git.buscarRepos(up)

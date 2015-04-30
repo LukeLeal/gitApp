@@ -29,15 +29,44 @@ class LoginViewController: UIViewController {
     
     @IBAction func Button(sender: UIButton) {
         
+        
+        
         var ud : NSUserDefaults = NSUserDefaults.standardUserDefaults()
         
         ud.setValue(loginField.text, forKeyPath: "usuario")
         
         println(ud.valueForKey("usuario"))
         
-        
+    
+    }
+    
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String!, sender: AnyObject!) -> Bool {
+
+ 
+    if identifier == "segueTest" {
+    
+    if (loginField.text.isEmpty) {
+    
+    let alert = UIAlertView()
+    alert.title = "No Text"
+    alert.message = "Please Enter Text In The Box"
+    alert.addButtonWithTitle("Ok")
+    alert.show()
+    
+    return false
         
     }
+    
+    else {
+        
+    return true
+    }
+    }
+    
+    // by default, transition
+    return true
+}
 
     /*
     // MARK: - Navigation

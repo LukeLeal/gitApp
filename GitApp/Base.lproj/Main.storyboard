@@ -40,7 +40,7 @@
                                 </state>
                                 <connections>
                                     <action selector="Button:" destination="G9S-4H-mhI" eventType="touchUpInside" id="Dpk-Di-dRH"/>
-                                    <segue destination="7bK-jq-Zjz" kind="show" id="Fgm-fW-kks"/>
+                                    <segue destination="7bK-jq-Zjz" kind="show" identifier="segueTest" id="Fgm-fW-kks"/>
                                 </connections>
                             </button>
                         </subviews>
