@@ -267,6 +267,9 @@
                         <outlet property="image1" destination="sfk-Gs-Nb7" id="rpO-sS-y9F"/>
                         <outlet property="image2" destination="Ds5-Wz-VHG" id="ULG-r9-qzZ"/>
                         <outlet property="image3" destination="3QR-JL-dFN" id="lXr-Ct-quL"/>
+                        <outlet property="ouro" destination="VBE-3f-4QS" id="PWB-Y1-hBz"/>
+                        <outlet property="outo" destination="7OQ-b3-7F5" id="W7H-We-8GR"/>
+                        <outlet property="prata" destination="24V-tu-dzZ" id="puh-5s-eyg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>

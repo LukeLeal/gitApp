@@ -15,6 +15,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var image3: UIImageView!
     @IBOutlet weak var image2: UIImageView!
 
+    @IBOutlet weak var ouro: UILabel!
+    @IBOutlet weak var prata: UILabel!
+    @IBOutlet weak var bronze: UILabel!
     var detailItem: AnyObject? {
         didSet {
             // Update the view.
