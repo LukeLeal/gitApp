@@ -10,11 +10,12 @@ import UIKit
 
 class jSONManager: NSObject {
     
+    let clientID = "8fb09c4abdef8660c7a4"
+    let clientSecret = "562c127dd23de151e09483cea87b0e64ab58514c"
     var dm: DataManager = DataManager.sharedInstance
     
     func buscarRepos(user:String!){
-        let clientID = "8fb09c4abdef8660c7a4"
-        let clientSecret = "562c127dd23de151e09483cea87b0e64ab58514c"
+        
         
         var path = "users/mackmobile/repos"
         var url = NSURL(string: "https://api.github.com/\(path)?client_id=\(clientID)&client_secret=\(clientSecret)")
@@ -45,8 +46,6 @@ class jSONManager: NSObject {
     }
     
     func verificarPulls(usuario:String, path:String)->Bool{
-        let clientID = "8fb09c4abdef8660c7a4"
-        let clientSecret = "562c127dd23de151e09483cea87b0e64ab58514c"
         
         var url = NSURL(string: "https://api.github.com/repos/\(path)/pulls?client_id=\(clientID)&client_secret=\(clientSecret)")
         
@@ -95,14 +94,11 @@ class jSONManager: NSObject {
     
     func getLabel(number:String, path:String){
         
-        let clientID = "8fb09c4abdef8660c7a4"
-        let clientSecret = "562c127dd23de151e09483cea87b0e64ab58514c"
         
         var url = NSURL(string: "https://api.github.com/repos/\(path)/issues/\(number)?client_id=\(clientID)&client_secret=\(clientSecret)")
         
-        var jsonData = NSData(contentsOfURL: url!)
-        var jsonRes: AnyObject! = NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers, error: nil)
-        var resultado = jsonRes as! NSDictionary
+        
+        var resultado = self.getJSON(url!) as! NSDictionary
         
         var labels: AnyObject? = resultado.objectForKey("labels")
         var lab = labels as! Array<NSDictionary>
@@ -114,6 +110,10 @@ class jSONManager: NSObject {
             
             println("\(color),\(name)")
         }
-//       return ""
+    }
+    
+    func getJSON(url:NSURL)->AnyObject{
+        var jsonData = NSData(contentsOfURL: url)
+        return NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers, error: nil)!
     }
 }
