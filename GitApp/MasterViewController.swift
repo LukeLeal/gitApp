@@ -15,7 +15,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     //var managedObjectContext: NSManagedObjectContext? = nil
     var dm : DataManager = DataManager.sharedInstance;
     var project : NSArray?;
-    
+    var timer = NSTimer()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,9 +26,13 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     }
 
     override func viewDidLoad() {
+        
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Redo, target: self, action: "goBack")
+        
+        
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
@@ -36,23 +40,41 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             let controllers = split.viewControllers
             self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
             
+         
             var git = jSONManager()
             var up : String = ud.valueForKey("usuario") as! String
             git.buscarRepos(up)
             project = dm.searchEntity("Project");
             self.tableView.reloadData()
             println(dm.searchEntity("PullRequest"));
+            
+            timer = NSTimer.scheduledTimerWithTimeInterval(120, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
         }
         
         
-        if((ud.objectForKey("hasData")) == nil){
-//            dm.insereDadosPadrao();
-            ud.setBool(true, forKey: "hasData");
-        } else {
-            dm.updateUser("Daniel Orivaldo da Silva", newName: "Ayy lmao");
-        }
+//        if((ud.objectForKey("hasData")) == nil){
+////            dm.insereDadosPadrao();
+//            ud.setBool(true, forKey: "hasData");
+//        } else {
+//            dm.updateUser("Daniel Orivaldo da Silva", newName: "Ayy lmao");
+//        }
+//        project = dm.searchEntity("Project");
+//        println("hue");
+    }
+    
+    func goBack(){
+        
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func update(){
+        var git = jSONManager()
+        var up : String = ud.valueForKey("usuario") as! String
+        git.buscarRepos(up)
         project = dm.searchEntity("Project");
-        println("hue");
+        self.tableView.reloadData()
+        println(dm.searchEntity("PullRequest"));
+        println("PRINTO")
     }
 
     override func didReceiveMemoryWarning() {
