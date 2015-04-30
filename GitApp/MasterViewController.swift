@@ -10,11 +10,12 @@ import UIKit
 import CoreData
 
 class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate {
-
+    var ud : NSUserDefaults = NSUserDefaults.standardUserDefaults();
     var detailViewController: DetailViewController? = nil
     //var managedObjectContext: NSManagedObjectContext? = nil
     var dm : DataManager = DataManager.sharedInstance;
     var project : NSArray?;
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,9 +35,16 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         if let split = self.splitViewController {
             let controllers = split.viewControllers
             self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
+            
+            var git = jSONManager()
+            var up : String = ud.valueForKey("usuario") as! String
+            git.buscarRepos(up)
+            project = dm.searchEntity("Project");
+            self.tableView.reloadData()
+            println(dm.searchEntity("PullRequest"));
         }
         
-        var ud : NSUserDefaults = NSUserDefaults.standardUserDefaults();
+        
         if((ud.objectForKey("hasData")) == nil){
 //            dm.insereDadosPadrao();
             ud.setBool(true, forKey: "hasData");
@@ -51,13 +59,14 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     func insertNewObject(sender: AnyObject) {
         var git = jSONManager()
-        git.buscarRepos("Chimello44")
+        var up : String = ud.valueForKey("usuario") as! String
+        git.buscarRepos(up)
         project = dm.searchEntity("Project");
         self.tableView.reloadData()
-        println(((dm.searchEntity("PullRequest").objectAtIndex(0)) as! PullRequest).number);
+        println(dm.searchEntity("PullRequest"));
         
 //        let context = self.fetchedResultsController.managedObjectContext
 //        let entity = self.fetchedResultsController.fetchRequest.entity!
