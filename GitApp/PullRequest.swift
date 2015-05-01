@@ -22,4 +22,10 @@ class PullRequest: NSManagedObject {
         mset.addObject(lab);
         labels = NSSet(set: mset);
     }
+    
+    func removeAllLabels(){
+        var mset : NSMutableSet = labels as! NSMutableSet;
+        mset.removeAllObjects();
+        labels = NSSet(set: mset);
+    }
 }

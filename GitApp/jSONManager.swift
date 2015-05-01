@@ -103,9 +103,9 @@ class jSONManager: NSObject {
         var labels: AnyObject? = resultado.objectForKey("labels")
         let date: String? = resultado.objectForKey("updated_at") as? String
         
-        var pull = dm.searchEntity("PullRequest", predicate: "number == \(number)") as! PullRequest
-        pull.lastUpdate = date!
-        dm.context?.save(nil);
+//        var pull = dm.searchEntity("PullRequest", predicate: "number == \(number)") as! PullRequest
+//        pull.lastUpdate = date!
+//        dm.context?.save(nil);
         
         
         //fazer metodo no datamanager que recebe date, pull e verifica se atualiza
@@ -113,6 +113,7 @@ class jSONManager: NSObject {
         println("eita cara olha essa data ----> \(date)")
         var lab = labels as! Array<NSDictionary>
         
+        dm.updatePRLabels(number, projectName: path, attDate: date!, labels: lab)
         for item in lab{
             
             let color = item.objectForKey("color") as! String
