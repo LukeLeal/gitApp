@@ -107,17 +107,57 @@ class DataManager: NSObject {
         }
     }
     
-    func insertPullRequest(number:String, projectName:String){
+    func insertPullRequest(number:String, projectName:String){//, labels : Array<NSDictionary>){
         
         var predicate = "project.name == '\(projectName)' AND number == \(number)";
         if !compareEntity("PullRequest", predicate: predicate){
             var e : PullRequest = NSEntityDescription.insertNewObjectForEntityForName("PullRequest", inManagedObjectContext: context!) as! PullRequest
             e.number = Double(number.toInt()!);//Arrumar se der tempo
             e.project = searchEntity("Project", predicate: "name == '\(projectName)'") as! Project;
+            e.lastUpdate = "not set";
+//            for item in labels {
+//                var label = NSEntityDescription.insertNewObjectForEntityForName("Labels", inManagedObjectContext: context!) as! Label;
+//                label.name = item.valueForKey("name") as! String;
+//                //Seta tipoq
+//                if(Array(label.name)[0] != "P"){
+//                    label.type = String(Array(label.name)[0]);
+//                } else {
+//                    label.type = String(Array(label.name)[4]);
+//                }
+//                //Label tá sem relaçao com PR. Nao que isso seja um problema realmente
+//                e.addLabel(label);
+//            }
         
             context!.save(nil)
         }
 
+    }
+    
+    func updatePRLabels(number:String, projectName:String, attDate : String, labels : Array<NSDictionary>){
+        //Busca o PR
+        var pr = searchEntity("PullRequest", predicate: "project.name == '\(projectName)' AND number == \(number)") as? PullRequest;
+        //Verifica diferença nas datas de atualização
+        if(!(pr!.lastUpdate == attDate)){
+            pr!.lastUpdate = attDate;
+            //Tira todos as labels do NSSet.
+            pr!.removeAllLabels();
+            //Adiciona tudo de novo. [/lazyMode]
+            for item in labels {
+                var label = NSEntityDescription.insertNewObjectForEntityForName("Label", inManagedObjectContext: context!) as! Label;
+                label.name = item.valueForKey("name") as! String;
+                //Setagem do tipo [/cancer]
+                if(Array(label.name)[0] != "P"){
+                    label.type = String(Array(label.name)[0]);
+                } else {
+                    label.type = String(Array(label.name)[4]);
+                }
+                //Label tá sem relaçao com PR. Nao que isso seja um problema realmente
+                pr!.addLabel(label);
+            }
+            context?.save(nil);
+        } else {
+            println("Nem precisa hue");
+        }
     }
 }
 
