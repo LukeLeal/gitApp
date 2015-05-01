@@ -17,4 +17,9 @@ class PullRequest: NSManagedObject {
     @NSManaged var number: Double
     @NSManaged var lastUpdate: String
 
+    func addLabel(lab : Label){
+        var mset : NSMutableSet = labels as! NSMutableSet;
+        mset.addObject(lab);
+        labels = NSSet(set: mset);
+    }
 }

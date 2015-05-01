@@ -47,6 +47,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             project = dm.searchEntity("Project");
             self.tableView.reloadData()
             println(dm.searchEntity("PullRequest"));
+            println("As label tuto");
+            println(dm.searchEntity("Label"));
             
             timer = NSTimer.scheduledTimerWithTimeInterval(120, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
         }

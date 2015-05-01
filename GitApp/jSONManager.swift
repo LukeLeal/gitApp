@@ -36,7 +36,7 @@ class jSONManager: NSObject {
                 
                 if numPull != ""{
                     dm.insertPullRequest(numPull, projectName: repo)
-                    
+                    //Resolver issae
                 }
                 self.getLabel(numPull, path: repo)
 //                println(self.getLabel(numPull, path: repo))

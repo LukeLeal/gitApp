@@ -14,5 +14,12 @@ class Project: NSManagedObject {
     @NSManaged var name: String
     @NSManaged var readMe: String
     @NSManaged var pullRequests: NSSet
+    
+    func addPullRequest(pr : PullRequest){
+        var mset : NSMutableSet = pullRequests as! NSMutableSet;
+        mset.addObject(pr);
+        pullRequests = NSSet(set: mset);
+    }
+    
 
 }
