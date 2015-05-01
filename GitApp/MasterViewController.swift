@@ -11,19 +11,17 @@ import CoreData
 
 class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     var ud : NSUserDefaults = NSUserDefaults.standardUserDefaults();
-    var detailViewController: DetailViewController? = nil
-    //var managedObjectContext: NSManagedObjectContext? = nil
     var dm : DataManager = DataManager.sharedInstance;
     var project : NSArray?;
     var timer = NSTimer()
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            self.clearsSelectionOnViewWillAppear = false
-            self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
-        }
-    }
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+//            self.clearsSelectionOnViewWillAppear = false
+//            self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
+//        }
+//    }
 
     override func viewDidLoad() {
         
@@ -36,10 +34,10 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
-        if let split = self.splitViewController {
-            let controllers = split.viewControllers
-            self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
-            
+//        if let split = self.splitViewController {
+//            let controllers = split.viewControllers
+//            self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
+        
          
             var git = jSONManager()
             var up : String = ud.valueForKey("usuario") as! String
@@ -51,7 +49,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             println(dm.searchEntity("Label"));
             
             timer = NSTimer.scheduledTimerWithTimeInterval(120, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
-        }
+//        }
         
         
 //        if((ud.objectForKey("hasData")) == nil){

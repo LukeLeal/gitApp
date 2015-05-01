@@ -26,8 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 //        
 //        let controller = masterNavigationController.topViewController as! MasterViewController
         
-        let loginNavigationController = splitViewController.viewControllers[0] as!UINavigationController
-        let controller = loginNavigationController.topViewController as! LoginViewController
+        let loginNavigationController = splitViewController.viewControllers[0] as! LoginViewController
+//        let controller = loginNavigationController.topViewController as! LoginViewController
         
         //controller.managedObjectContext = self.managedObjectContext;
         

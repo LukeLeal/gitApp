@@ -13,36 +13,46 @@ class jSONManager: NSObject {
     let clientID = "8fb09c4abdef8660c7a4"
     let clientSecret = "562c127dd23de151e09483cea87b0e64ab58514c"
     var dm: DataManager = DataManager.sharedInstance
+    var appDel = UIApplication.sharedApplication().delegate
     
     func buscarRepos(user:String!){
         
-        
-        var path = "users/mackmobile/repos"
-        var url = NSURL(string: "https://api.github.com/\(path)?client_id=\(clientID)&client_secret=\(clientSecret)")
-        
-        
-        var jsonData = NSData(contentsOfURL: url!)
-        var jsonRes: AnyObject? = NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers, error: nil)
-        var resultado = jsonRes as! Array<NSDictionary>
-        
-        var repos = Array<String>()
-        
-        for item in resultado{
-            let repo = item.objectForKey("full_name") as! String
-            if verificarPulls(user, path: repo){
-                println(repo)
-                dm.insertProject(repo)
-                let numPull = self.getPull(repo, usuario: user)
-                
-                if numPull != ""{
-                    dm.insertPullRequest(numPull, projectName: repo)
-                    //Resolver issae
+        if Reachability.isConnectedToNetwork(){
+            println("connected")
+            var path = "users/mackmobile/repos"
+            var url = NSURL(string: "https://api.github.com/\(path)?client_id=\(clientID)&client_secret=\(clientSecret)")
+            
+            
+            var jsonData = NSData(contentsOfURL: url!)
+            var jsonRes: AnyObject? = NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            
+            var resultado = jsonRes as! Array<NSDictionary>
+            
+            var repos = Array<String>()
+            
+            for item in resultado{
+                let repo = item.objectForKey("full_name") as! String
+                if verificarPulls(user, path: repo){
+                    println(repo)
+                    dm.insertProject(repo)
+                    let numPull = self.getPull(repo, usuario: user)
+                    
+                    if numPull != ""{
+                        dm.insertPullRequest(numPull, projectName: repo)
+                        //Resolver issae
+                    }
+                    self.getLabel(numPull, path: repo)
+                    repos.append(repo)
                 }
-                self.getLabel(numPull, path: repo)
-//                println(self.getLabel(numPull, path: repo))
-                repos.append(repo)
             }
         }
+        else{
+            println("not not not noo t")
+        }
+        
+        
+        
+        
     }
     
     func verificarPulls(usuario:String, path:String)->Bool{
@@ -103,9 +113,9 @@ class jSONManager: NSObject {
         var labels: AnyObject? = resultado.objectForKey("labels")
         let date: String? = resultado.objectForKey("updated_at") as? String
         
-//        var pull = dm.searchEntity("PullRequest", predicate: "number == \(number)") as! PullRequest
-//        pull.lastUpdate = date!
-//        dm.context?.save(nil);
+        //        var pull = dm.searchEntity("PullRequest", predicate: "number == \(number)") as! PullRequest
+        //        pull.lastUpdate = date!
+        //        dm.context?.save(nil);
         
         
         //fazer metodo no datamanager que recebe date, pull e verifica se atualiza

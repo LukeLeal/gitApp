@@ -9,7 +9,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    
     
     @IBOutlet weak var loginField: UITextField!
     
@@ -21,7 +21,7 @@ class LoginViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -38,45 +38,45 @@ class LoginViewController: UIViewController {
         
         println(ud.valueForKey("usuario"))
         
-    
+        
     }
     
     
     override func shouldPerformSegueWithIdentifier(identifier: String!, sender: AnyObject!) -> Bool {
-
- 
-    if identifier == "segueTest" {
-    
-    if (loginField.text.isEmpty) {
-    
-    let alert = UIAlertView()
-    alert.title = "No Text"
-    alert.message = "Please Enter Text In The Box"
-    alert.addButtonWithTitle("Ok")
-    alert.show()
-    
-    return false
         
-    }
-    
-    else {
         
-    return true
-    }
+        if identifier == "segueTest" {
+            
+            if (loginField.text.isEmpty) {
+                
+                let alert = UIAlertView()
+                alert.title = "No Text"
+                alert.message = "Please Enter Text In The Box"
+                alert.addButtonWithTitle("Ok")
+                alert.show()
+                
+                return false
+                
+            }
+                
+            else {
+                
+                return true
+            }
+        }
+        
+        // by default, transition
+        return true
     }
     
-    // by default, transition
-    return true
-}
-
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
