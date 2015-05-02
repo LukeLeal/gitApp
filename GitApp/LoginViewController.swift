@@ -13,13 +13,29 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginField: UITextField!
     
+    @IBOutlet weak var user: UILabel!
     
+    @IBOutlet weak var signin: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "github2")!)
+    self.view.backgroundColor = UIColor.whiteColor()    
         
-        // Do any additional setup after loading the view.
+    
+        
+        user.layer.cornerRadius = 8.0
+//        unametxt.layer.masksToBounds = true
+        user.layer.borderColor = UIColor( red: 70/255, green: 88/255, blue:110/255, alpha: 1.0 ).CGColor
+        user.layer.borderWidth = 1.0
+        
+        signin.layer.cornerRadius = 8.0
+        signin.layer.borderColor = UIColor( red: 70/255, green: 88/255, blue:110/255, alpha: 1.0 ).CGColor
+        signin.layer.borderWidth = 1.0
+//        signin.backgroundColor = UIColor.greenColor()
+        loginField.layer.cornerRadius = 8.0
+        loginField.layer.borderColor = UIColor( red: 70/255, green: 88/255, blue:110/255, alpha: 1.0 ).CGColor
+        loginField.layer.borderWidth = 1.0
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -50,8 +66,8 @@ class LoginViewController: UIViewController {
             if (loginField.text.isEmpty) {
                 
                 let alert = UIAlertView()
-                alert.title = "No Text"
-                alert.message = "Please Enter Text In The Box"
+                alert.title = "Sem texto"
+                alert.message = "Digite o nome do usuario Git"
                 alert.addButtonWithTitle("Ok")
                 alert.show()
                 
