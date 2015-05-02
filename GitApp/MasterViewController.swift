@@ -28,9 +28,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //Notification Stuff
+        let notificacao: NSNotificationCenter = NSNotificationCenter.defaultCenter();
+        notificacao.addObserver(self, selector: "updateAlert:", name: "updatedPR", object: nil);
+        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Redo, target: self, action: "goBack")
-        
-        
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
@@ -60,6 +63,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 //        }
 //        project = dm.searchEntity("Project");
 //        println("hue");
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     func goBack(){
@@ -76,11 +85,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         println(dm.searchEntity("PullRequest"));
         println("PRINTO")
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func insertNewObject(sender: AnyObject) {
         var git = jSONManager()
@@ -92,22 +96,23 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //println(pull.lastUpdate);
         //println((dm.searchEntity("PullRequest").objectAtIndex(0) as! PullRequest).lastUpdate);
         
-//        let context = self.fetchedResultsController.managedObjectContext
-//        let entity = self.fetchedResultsController.fetchRequest.entity!
-//        let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity.name!, inManagedObjectContext: context) as! NSManagedObject
-//             
-//        // If appropriate, configure the new managed object.
-//        // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-//        newManagedObject.setValue(NSDate(), forKey: "timeStamp")
-//             
-//        // Save the context.
-//        var error: NSError? = nil
-//        if !context.save(&error) {
-//            // Replace this implementation with code to handle the error appropriately.
-//            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//            //println("Unresolved error \(error), \(error.userInfo)")
-//            abort()
-//        }
+    }
+    
+    //MARK: - NOTIFICATIONS
+    
+    //Notificação: updatedPR. Mostra um alerta que informa quais PRs atualizaram.
+    func updateAlert(not: NSNotification){
+        let ui : Dictionary<String, String!> = not.userInfo as! Dictionary<String, String!>;
+        let msgStr : String = ui["updatedPRMessage"]!;
+        
+        let alert : UIAlertController = UIAlertController(title: "Atualização", message: msgStr, preferredStyle: .Alert);
+        let action1 : UIAlertAction = UIAlertAction(title: "ok", style: .Default) { action -> Void in
+            
+        }
+        alert.addAction(action1);
+        
+        self.presentViewController(alert, animated: true, completion: nil);
+        
     }
 
     // MARK: - Segues

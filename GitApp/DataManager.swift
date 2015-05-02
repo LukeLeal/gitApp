@@ -133,7 +133,7 @@ class DataManager: NSObject {
 
     }
     
-    func updatePRLabels(number:String, projectName:String, attDate : String, labels : Array<NSDictionary>){
+    func updatePRLabels(number:String, projectName:String, attDate : String, labels : Array<NSDictionary>) -> Bool {
         //Busca o PR
         var pr = searchEntity("PullRequest", predicate: "project.name == '\(projectName)' AND number == \(number)") as? PullRequest;
         //Verifica diferença nas datas de atualização
@@ -155,8 +155,10 @@ class DataManager: NSObject {
                 pr!.addLabel(label);
             }
             context?.save(nil);
+            return true;
         } else {
             println("Nem precisa hue");
+            return false;
         }
     }
 }

@@ -30,6 +30,10 @@ class jSONManager: NSObject {
             
             var repos = Array<String>()
             
+            //Vars relacionadas à notificação.
+            var postNot = false;
+            var stringNot = "Houve atualização no(s) seguinte(s) PullRequests: \n\n"
+            
             for item in resultado{
                 let repo = item.objectForKey("full_name") as! String
                 if verificarPulls(user, path: repo){
@@ -41,10 +45,23 @@ class jSONManager: NSObject {
                         dm.insertPullRequest(numPull, projectName: repo)
                         //Resolver issae
                     }
-                    self.getLabel(numPull, path: repo)
+                    var att : Bool = self.getLabel(numPull, path: repo);
+                    
+                    //Se houve atualização no PullRequest.
+                    if(att){
+                        postNot = true;
+                        stringNot.extend("\(repo) \n");
+                    }
                     repos.append(repo)
                 }
             }
+            
+            if(postNot){
+                let not : NSNotificationCenter = NSNotificationCenter.defaultCenter();
+                var msg = ["updatedPRMessage": stringNot];
+                not.postNotificationName("updatedPR", object: self, userInfo: msg);
+            }
+            
         }
         else{
             println("not not not noo t")
@@ -101,7 +118,7 @@ class jSONManager: NSObject {
         return ""
     }
     
-    func getLabel(number:String, path:String){
+    func getLabel(number:String, path:String) -> Bool{
         
         
         var url = NSURL(string: "https://api.github.com/repos/\(path)/issues/\(number)?client_id=\(clientID)&client_secret=\(clientSecret)")
@@ -123,7 +140,8 @@ class jSONManager: NSObject {
         println("eita cara olha essa data ----> \(date)")
         var lab = labels as! Array<NSDictionary>
         
-        dm.updatePRLabels(number, projectName: path, attDate: date!, labels: lab)
+        //Se houver atualização no PR, isso será true.
+        var att : Bool = dm.updatePRLabels(number, projectName: path, attDate: date!, labels: lab);
         for item in lab{
             
             let color = item.objectForKey("color") as! String
@@ -133,6 +151,7 @@ class jSONManager: NSObject {
             
             println("\(color),\(name)")
         }
+        return att;
     }
     
     func getJSON(url:NSURL)->AnyObject{
