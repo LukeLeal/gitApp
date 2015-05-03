@@ -73,10 +73,17 @@ class DetailViewController: UIViewController {
         let repo = userInfo["repo"]
         println(repo!)
     }
+    
+    
     func getLabels(){
         var pr = dm.searchEntity("PullRequest", predicate: "project.name = '\(proj!)'") as! PullRequest
         //pegar as labels do pull request
+//        var cor = dm.searchEntity("color")
+//        var nome = dm.searchEntity("name")
+        
     }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

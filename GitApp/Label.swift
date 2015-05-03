@@ -13,4 +13,5 @@ class Label: NSManagedObject {
 
     @NSManaged var type: String
     @NSManaged var name: String
+       
 }

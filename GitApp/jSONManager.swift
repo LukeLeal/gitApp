@@ -149,8 +149,7 @@ class jSONManager: NSObject {
             let color = item.objectForKey("color") as! String
             let name = item.objectForKey("name") as! String
             
-            
-            
+ 
             println("\(color),\(name)")
         }
         return att;
