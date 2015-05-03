@@ -44,8 +44,7 @@ class jSONManager: NSObject {
                     let numPull = self.getPull(repo, usuario: user)
                     
                     if numPull != ""{
-                        dm.insertPullRequest(numPull, projectName: repo)
-                        //Resolver issae
+                        dm.insertPullRequest(numPull, projectName: repo, owner: user)
                     }
                     var att : Bool = self.getLabel(numPull, path: repo);
                     

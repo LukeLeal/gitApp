@@ -64,7 +64,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 //        project = dm.searchEntity("Project");
 //        println("hue");
         
-//        var pr : PullRequest = dm.searchEntity("PullRequest", predicate: "project.name == 'mackmobile/iDicionario' AND number == 29") as! PullRequest;
+//        var pr : PullRequest = dm.searchEntity("PullRequest", predicate: "project.name == 'mackmobile/iDicionario' AND owner = 'LukeLeal'") as! PullRequest;
 //        var arr : NSArray = NSArray(array: pr.labels.allObjects);
 //
 //        println("Ó as label: ");

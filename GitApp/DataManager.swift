@@ -51,6 +51,16 @@ class DataManager: NSObject {
         return fetchedObjects.objectAtIndex(0) as! NSManagedObject;
     }
     
+    func searchEntityArray (entity : String, predicate : String) -> NSArray{
+        var fr : NSFetchRequest = NSFetchRequest();
+        
+        fr.entity = NSEntityDescription.entityForName(entity, inManagedObjectContext: context!);
+        fr.predicate = NSPredicate(format: predicate);
+        
+        var fetchedObjects : NSArray = context!.executeFetchRequest(fr, error: nil)!;
+        return fetchedObjects;
+    }
+    
 //    func searchPR (predicate : String) -> NSManagedObject{
 //        var fr : NSFetchRequest = NSFetchRequest();
 //        
@@ -107,7 +117,7 @@ class DataManager: NSObject {
         }
     }
     
-    func insertPullRequest(number:String, projectName:String){//, labels : Array<NSDictionary>){
+    func insertPullRequest(number:String, projectName:String, owner: String){//, labels : Array<NSDictionary>){
         
         var predicate = "project.name == '\(projectName)' AND number == \(number)";
         if !compareEntity("PullRequest", predicate: predicate){
@@ -115,6 +125,7 @@ class DataManager: NSObject {
             e.number = Double(number.toInt()!);//Arrumar se der tempo
             e.project = searchEntity("Project", predicate: "name == '\(projectName)'") as! Project;
             e.lastUpdate = "not set";
+            e.owner = owner;
 //            for item in labels {
 //                var label = NSEntityDescription.insertNewObjectForEntityForName("Labels", inManagedObjectContext: context!) as! Label;
 //                label.name = item.valueForKey("name") as! String;

@@ -16,6 +16,7 @@
     <entity name="PullRequest" representedClassName="GitApp.PullRequest" syncable="YES">
         <attribute name="lastUpdate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="owner" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="labels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Label" inverseName="pullRequest" inverseEntity="Label" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="pullRequests" inverseEntity="Project" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="pullRequests" inverseEntity="User" syncable="YES"/>
@@ -28,7 +29,7 @@
     <elements>
         <element name="Label" positionX="385" positionY="171" width="128" height="88"/>
         <element name="Project" positionX="133" positionY="9" width="128" height="88"/>
-        <element name="PullRequest" positionX="126" positionY="179" width="128" height="118"/>
+        <element name="PullRequest" positionX="126" positionY="179" width="128" height="133"/>
         <element name="User" positionX="133" positionY="369" width="128" height="88"/>
     </elements>
 </model>

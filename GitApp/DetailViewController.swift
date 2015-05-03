@@ -76,11 +76,16 @@ class DetailViewController: UIViewController {
     
     
     func getLabels(){
-        var pr = dm.searchEntity("PullRequest", predicate: "project.name = '\(proj!)'") as! PullRequest
+        var ud = NSUserDefaults.standardUserDefaults();
+        var user = ud.valueForKey("usuario") as! String;
+        var pr = dm.searchEntity("PullRequest", predicate: "project.name = '\(proj!)' AND owner == '\(user)'") as! PullRequest
         //pegar as labels do pull request
 //        var cor = dm.searchEntity("color")
 //        var nome = dm.searchEntity("name")
+        var labels : NSArray = NSArray(array: pr.labels.allObjects);
         
+//        println("Ó as label: ");
+//        println(arr.count);
     }
     
     
