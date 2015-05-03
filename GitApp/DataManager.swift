@@ -152,7 +152,9 @@ class DataManager: NSObject {
                     label.type = String(Array(label.name)[4]);
                 }
                 //Label tá sem relaçao com PR. Nao que isso seja um problema realmente
-                pr!.addLabel(label);
+                //pr!.addLabel(label);
+                
+                pr!.mutableSetValueForKey("labels").addObject(label);
             }
             context?.save(nil);
             return true;
