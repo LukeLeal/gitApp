@@ -32,7 +32,9 @@ class jSONManager: NSObject {
             
             //Vars relacionadas à notificação.
             var postNot = false;
-            var stringNot = "Houve atualização no(s) seguinte(s) PullRequests: \n\n"
+            var stringNot = ""
+            let not : NSNotificationCenter = NSNotificationCenter.defaultCenter();
+
             
             for item in resultado{
                 let repo = item.objectForKey("full_name") as! String
@@ -50,14 +52,14 @@ class jSONManager: NSObject {
                     //Se houve atualização no PullRequest.
                     if(att){
                         postNot = true;
-                        stringNot.extend("\(repo) \n");
+                        not.postNotificationName("update", object: self, userInfo: ["repo":repo])
+                        stringNot.extend("\(repo)");
                     }
                     repos.append(repo)
                 }
             }
             
             if(postNot){
-                let not : NSNotificationCenter = NSNotificationCenter.defaultCenter();
                 var msg = ["updatedPRMessage": stringNot];
                 not.postNotificationName("updatedPR", object: self, userInfo: msg);
             }

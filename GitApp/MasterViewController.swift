@@ -105,7 +105,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         let ui : Dictionary<String, String!> = not.userInfo as! Dictionary<String, String!>;
         let msgStr : String = ui["updatedPRMessage"]!;
         
-        let alert : UIAlertController = UIAlertController(title: "Atualização", message: msgStr, preferredStyle: .Alert);
+        let alert : UIAlertController = UIAlertController(title: "Atualização", message: "Houve atualização no(s) seguinte(s) PullRequests: \n\n \(msgStr)", preferredStyle: .Alert);
         let action1 : UIAlertAction = UIAlertAction(title: "ok", style: .Default) { action -> Void in
             
         }
@@ -117,17 +117,19 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     // MARK: - Segues
 
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "showDetail" {
-//            if let indexPath = self.tableView.indexPathForSelectedRow() {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var cell = sender as! UITableViewCell
+        if segue.identifier == "showDetail" {
+            if let indexPath = self.tableView.indexPathForSelectedRow() {
 //            let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
-//                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
+                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
 //                controller.detailItem = object
-//                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-//                controller.navigationItem.leftItemsSupplementBackButton = true
-//            }
-//        }
-//    }
+                controller.proj = cell.textLabel?.text!
+                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+                controller.navigationItem.leftItemsSupplementBackButton = true
+            }
+        }
+    }
 
     // MARK: - Table View
 
