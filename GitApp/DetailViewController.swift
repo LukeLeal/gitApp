@@ -79,26 +79,6 @@ class DetailViewController: UIViewController {
         
         self.getLabels()
         
-        //for labels in Array(){
-          //  if(label.type == "b"){
-              //  contadorB++
-            //    bronze.text = NSString(format:"%d", contadorB) as String
-          //  }
-        //    else if(label.type == "a"){
-      //          contadorP++
-    //            prata.text = NSString(format:"%d", contadorP) as String
-  //          }
-//            else if(label.type == "o"){
-                //contadorO++
-              //  ouro.text = NSString(format:"%d", contadorO) as String
-            //}
-            //else{
-           //     contadorI++
-         //       problema.text = NSString(format:"%d", contadorI) as String
-       //
-     //       }
-   //
- //       }
         
         
        
@@ -128,6 +108,28 @@ class DetailViewController: UIViewController {
         var labels : NSArray = NSArray(array: pr.labels.allObjects);
        println("Eita olha as cores")
         println(labels)
+        
+        for label in labels{
+            if(label.type == "B"){//bronze
+                contadorB++
+                bronze.text = NSString(format:"%d", contadorB) as String
+            }
+            else if(label.type == "a"){//prata
+                contadorP++
+                prata.text = NSString(format:"%d", contadorP) as String
+            }
+            else if(label.type == "O"){//ouro
+                contadorO++
+                ouro.text = NSString(format:"%d", contadorO) as String
+            }
+            else{//problema
+                contadorI++
+                problema.text = NSString(format:"%d", contadorI) as String
+                
+            }
+            
+        }
+
     }
     
     
