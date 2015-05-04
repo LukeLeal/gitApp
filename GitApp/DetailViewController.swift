@@ -42,7 +42,7 @@ class DetailViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = UIColor.whiteColor()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Redo , target: self, action: "goBack")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Rewind , target: self, action: "goBack")
         
         
         self.image1.layer.cornerRadius = 60.0
@@ -88,7 +88,8 @@ class DetailViewController: UIViewController {
     }
     
     func goBack(){
-        self.navigationController?.popViewControllerAnimated(true)
+//        self.navigationController?.popViewControllerAnimated(true)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
     func update(not: NSNotification){
