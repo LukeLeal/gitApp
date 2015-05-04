@@ -33,7 +33,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         let notificacao: NSNotificationCenter = NSNotificationCenter.defaultCenter();
         notificacao.addObserver(self, selector: "updateAlert:", name: "updatedPR", object: nil);
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Redo, target: self, action: "goBack")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Redo , target: self, action: "goBack")
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
@@ -79,6 +79,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     func goBack(){
         
         self.navigationController?.popViewControllerAnimated(true)
+        println("VOLTO")
     }
     
     func update(){
