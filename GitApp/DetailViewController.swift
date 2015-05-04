@@ -22,6 +22,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var image3: UIImageView!
     @IBOutlet weak var image2: UIImageView!
 
+    @IBOutlet weak var image4: UIImageView!
     
     @IBOutlet weak var ouro: UILabel!
     @IBOutlet weak var prata: UILabel!
@@ -58,6 +59,10 @@ class DetailViewController: UIViewController {
         self.image3.layer.cornerRadius = 60.0
         image3.layer.borderColor = UIColor( red: 70/255, green: 88/255, blue:110/255, alpha: 1.0 ).CGColor
         image3.layer.borderWidth = 1.0
+        
+        self.image4.layer.cornerRadius = 60.0
+        image4.layer.borderColor = UIColor( red: 70/255, green: 88/255, blue:110/255, alpha: 1.0 ).CGColor
+        image4.layer.borderWidth = 1.0
         
         ouro.layer.cornerRadius = 8.0
         ouro.layer.borderColor = UIColor( red: 70/255, green: 88/255, blue:110/255, alpha: 1.0 ).CGColor
