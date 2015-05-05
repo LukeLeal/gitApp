@@ -127,10 +127,18 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         var cell = sender as! UITableViewCell
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-//            let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
                 let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
+                
+                controller.not.addObserver(controller, selector: "getProject:", name: "viewDetails", object: nil)
+
+                
+                let not : NSNotificationCenter = NSNotificationCenter.defaultCenter();
+                var msg = ["projectName": cell.textLabel!.text!];
+                not.postNotificationName("viewDetails", object: self, userInfo: msg)
+//            let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
 //                controller.detailItem = object
-                controller.proj = cell.textLabel?.text!
+                //controller.proj = cell.textLabel?.text!
+                
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }

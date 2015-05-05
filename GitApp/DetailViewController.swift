@@ -30,17 +30,16 @@ class DetailViewController: UIViewController {
 
     
     @IBOutlet weak var problema: UILabel!
-    
+    let not = NSNotificationCenter.defaultCenter()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println(proj)
-        
-        let not = NSNotificationCenter.defaultCenter()
+        //println(proj)
         not.addObserver(self, selector: "update:", name: "update", object: nil)
-        // Do any additional setup after loading the view, typically from a nib.
+                
+// Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = UIColor.whiteColor()
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Rewind , target: self, action: "goBack")
@@ -138,6 +137,11 @@ class DetailViewController: UIViewController {
 
     }
     
+    func getProject(not: NSNotification){
+        let ui : Dictionary<String, String!> = not.userInfo as! Dictionary<String, String!>;
+        proj = ui["projectName"]!;
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
